@@ -1,10 +1,11 @@
 module.exports = {
     name: "you-link",
-    entry: ["babel-polyfill", "./src/index.js"],
-    context: __dirname,
+    entry: {
+        app: "./index.js"
+    },
     output: {
-        path: __dirname,
-        filename: "lib/index.js"
+        filename: "lib/index.js",
+        libraryTarget: 'umd'
     },
     module: {
         rules: [
@@ -14,6 +15,5 @@ module.exports = {
                 use: [{ loader: "babel-loader" }]
             }
         ]
-    },
-    devtool: "source-map"
+    }
 };
