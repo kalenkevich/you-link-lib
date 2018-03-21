@@ -8,7 +8,7 @@
     "build": "webpack",
     "prepublish": "npm run build"
   },
-  "author": "",
+  "author": "Alexey Kalenkevich",
   "license": "ISC",
   "dependencies": {
     "gapi": "0.0.3"
