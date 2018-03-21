@@ -2,10 +2,10 @@ import YoutubeProvider, {providerId as YoutubeProviderId} from './content-provid
 import BingProvider, {providerId as BingProviderId} from './content-provider/bing-content-provider';
 
 export default class YouLink {
-    static init(providersOptions = []) {
+    static init(providersOptions) {
         this.providers = [];
 
-        providersOptions.forEach(options => {
+        (providersOptions || []).forEach(options => {
             switch (options.contentProvider) {
                 case YoutubeProviderId:
                     this.providers.push(new YoutubeProvider(options));
@@ -14,14 +14,16 @@ export default class YouLink {
                     this.providers.push(new BingProvider(options));
                     break;
                 default:
-                    throw `No such provider: ${options.contentProvider}`;
+                    throw new Error(`No such provider: ${options.contentProvider}`);
             }
         });
+
+        return true;
     }
 
     static async search(searchOptions, eligibleProvidersIds) {
         const providers = this.getEligibleProviders(eligibleProvidersIds);
-        const promises = providers.map(provider => provider.search(searchOptions));
+        const promises = providers.filter(provider => provider.supportSearch).map(provider => provider.search(searchOptions));
         const searchResults = await Promise.all(promises);
 
         return searchResults.reduce((prev, current) => [...prev, ...current], []);
@@ -29,7 +31,7 @@ export default class YouLink {
 
     static async getByUrl(url, eligibleProvidersIds) {
         const providers = this.getEligibleProviders(eligibleProvidersIds);
-        const promises = providers.map(provider => provider.getByUrl(url));
+        const promises = providers.filter(provider => provider.supportLinkParsing).map(provider => provider.getByUrl(url));
         const searchResults = await Promise.all(promises);
 
         return searchResults.reduce((prev, current) => [...prev, ...current], []).find(r => r);
@@ -46,7 +48,7 @@ export default class YouLink {
             const eligibleProvider = this.providers.find(provider => provider.providerId === eligibleProviderId);
 
             if (!eligibleProvider) {
-                throw `No such provider: ${eligibleProviderId}`
+                throw new Error(`No such provider: ${eligibleProviderId}`);
             }
 
             eligibleProviders.push(eligibleProvider);

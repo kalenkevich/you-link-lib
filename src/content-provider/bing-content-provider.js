@@ -9,7 +9,7 @@ export default class BingContentProvider extends BaseContentProvider {
         super(...arguments);
 
         if (!options.apiKey) {
-            throw 'ApiKey should be provided';
+            throw new Error('Api key should be provided');
         }
 
         this.apiKey = options.apiKey;
@@ -19,19 +19,18 @@ export default class BingContentProvider extends BaseContentProvider {
         return providerId;
     }
 
+    get supportSearch() {
+        return true;
+    }
+
+    get supportLinkParsing() {
+        return false;
+    }
+
     sendSearchRequest({searchQuery}) {
         const options = {headers: {'Ocp-Apim-Subscription-Key': this.apiKey}};
 
         return HttpRequest.sendRequest('GET', `https://api.cognitive.microsoft.com/bing/v7.0/videos/search?q=${searchQuery}`, null, options);
-    }
-
-    sendGetContentByIdRequest(videoId) {
-        const options = {headers: {'Ocp-Apim-Subscription-Key': this.apiKey}};
-
-        return HttpRequest.sendRequest('GET', `${videoId}&key=${this.apiKey}`, null, options);
-    }
-
-    parseContentId(url) {
     }
 
     adaptContent(contentsRaw = []) {

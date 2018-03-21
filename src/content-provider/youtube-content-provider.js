@@ -9,7 +9,7 @@ export default class YouTubeContentProvider extends BaseContentProvider {
         super(...arguments);
 
         if (!options.apiKey) {
-            throw 'ApiKey should be provided';
+            throw new Error('Api Key should be provided');
         }
 
         this.apiKey = options.apiKey;
@@ -17,6 +17,14 @@ export default class YouTubeContentProvider extends BaseContentProvider {
 
     get providerId() {
         return providerId;
+    }
+
+    get supportSearch() {
+        return true;
+    }
+
+    get supportLinkParsing() {
+        return true;
     }
 
     sendSearchRequest({searchQuery}) {

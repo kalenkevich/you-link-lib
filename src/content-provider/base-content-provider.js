@@ -1,8 +1,5 @@
 export default class BaseContentProvider {
-    constructor(options) {
-        this.canSearch = options.searchEnabled || true;
-        this.canGetByUrl = options.getByUrlEnabled || true;
-    }
+    constructor() {}
 
     async search(searchOptions) {
         const result = await this.sendSearchRequest(searchOptions);
@@ -23,22 +20,24 @@ export default class BaseContentProvider {
     }
 
     get providerId() {
-        throw 'should be overridden';
+        throw new Error('should be overridden');
     }
 
-    sendSearchRequest() {
-        throw 'should be overridden';
+    get supportSearch() {
+        throw new Error('should be overridden');
     }
 
-    sendGetContentByIdRequest() {
-        throw 'should be overridden';
+    get supportLinkParsing() {
+        throw new Error('should be overridden');
     }
 
     adaptContent() {
-        throw 'should be overridden';
+        throw new Error('should be overridden');
     }
 
-    parseContentId() {
-        throw 'should be overridden';
-    }
+    sendSearchRequest() {}
+
+    sendGetContentByIdRequest() {}
+
+    parseContentId() {}
 }
