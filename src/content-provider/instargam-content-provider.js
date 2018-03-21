@@ -16,4 +16,4 @@ export default class InstagramContentProvider extends BaseContentProvider {
     }
 }
 
-export { providerId };
+export {providerId};
