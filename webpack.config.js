@@ -1,10 +1,10 @@
 module.exports = {
     name: "you-link",
-    entry: ["babel-polyfill", "./index.js"],
+    entry: ["babel-polyfill", "./src/index.js"],
     context: __dirname,
     output: {
         path: __dirname,
-        filename: "dist/index.js"
+        filename: "lib/index.js"
     },
     module: {
         rules: [
@@ -17,5 +17,5 @@ module.exports = {
             }
         ]
     },
-    devtool: "inline-source-map"
+    devtool: "source-map"
 };
