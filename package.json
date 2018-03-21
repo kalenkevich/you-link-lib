@@ -26,5 +26,10 @@
   },
   "directories": {
     "test": "test"
+  },
+  "homepage": "https://github.com/kalenkevich/you-link-lib#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kalenkevich/you-link-lib.git"
   }
 }
