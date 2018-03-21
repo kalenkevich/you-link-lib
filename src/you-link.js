@@ -1,11 +1,10 @@
-import YoutubeProvider, { YoutubeProviderId } from './content-provider/youtube-content-provider';
-import { BingProviderId } from './content-provider/youtube-content-provider';
-import { InstagramProviderId } from './content-provider/youtube-content-provider';
+import YoutubeProvider, { providerId as YoutubeProviderId } from './content-provider/youtube-content-provider';
+import { providerId as BingProviderId } from './content-provider/youtube-content-provider';
+import { providerId as InstagramProviderId } from './content-provider/youtube-content-provider';
 
 export default class YouLink {
     static init(providersOptions = []) {
         this.providers = [];
-        web
         providersOptions.forEach(options => {
            if (option.contentProvider === YoutubeProviderId) {
                 this.providers.push(new YoutubeProvider(options));
