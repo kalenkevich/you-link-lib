@@ -1,0 +1,5 @@
+/src
+./index.js
+/.idea
+./webpack.config.js
+./node_modules
