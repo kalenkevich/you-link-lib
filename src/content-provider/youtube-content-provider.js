@@ -1,5 +1,4 @@
 import BaseContentProvider from './base-content-provider';
-import HttpRequest from '../utils/http-request';
 import Content from '../content/content';
 
 const providerId = 'YouTube';
@@ -10,7 +9,6 @@ export default class YouTubeContentProvider extends BaseContentProvider {
     }
 
     sendRequest({searchQuery}) {
-        return HttpRequest.makeRequest('GET', `https://content.googleapis.com/youtube/v3/search?q=${searchQuery}&part=snippet`);
     }
 
     getByUrl() {
